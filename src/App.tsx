@@ -53,8 +53,6 @@ const App: React.FC = () => {
 
   const [selectedItems, setSelectedItems] = useState<ShopItem[]>([]);
 
-  // console.log(selectedItems);
-
   const emptyCartText = <p>Your cart is empty</p>
 
   const checkIfItemIsInCart = (x: ShopItem) => {
@@ -70,7 +68,6 @@ const App: React.FC = () => {
   }
 
   const getTotalPrice = () => {
-    // console.log(selectedItems);
     return Number(selectedItems.reduce((a, b) => (a + b.price * b.quantity), 0).toFixed(2))
   }
 
