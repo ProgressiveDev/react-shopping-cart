@@ -1,15 +1,12 @@
 body {
     background: #f0f0f0;
-}
-
-.App {
     height: 100vh;
     display: flex;
-    align-items: center
+    align-items: center;
+    justify-content: center;
 }
 
 .product {
-    margin: 20px;
     h2 {
         margin-top: 20px;
     }
@@ -18,6 +15,9 @@ body {
 .product-grid {
     display: flex;
     flex-wrap: wrap;
+    .col-5 {
+        margin: 20px;
+    }
 }
 
 .shop {
