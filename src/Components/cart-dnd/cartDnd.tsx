@@ -14,10 +14,14 @@ const style: React.CSSProperties = {
     float: "left"
 };
 
-const CartDnd: React.FC = () => {
+interface DragDropProps {
+    displayProduct: object[];
+}
+
+const CartDnd: React.FC<DragDropProps> = ({ displayProduct }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
-        drop: () => ({ title: "Dustbin" }),
+        drop: () => ({ displayProduct }),
         collect: monitor => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop()
@@ -34,6 +38,7 @@ const CartDnd: React.FC = () => {
 
     return (
         <div ref={drop} style={{ ...style, opacity }}>
+            {displayProduct}
             {isActive ? "Release to drop" : "Cart empty, drag and drop items here"}
         </div>
     );

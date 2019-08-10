@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Image } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import { useDrag, DragSourceMonitor } from "react-dnd";
 import ItemTypes from "./cart-dnd/ItemTypes";
 
@@ -23,6 +23,7 @@ const StoreProduct: React.FC<ProductProps> = ({ title, price, imageSource, addIt
             isDragging: monitor.isDragging()
         })
     });
+
     const opacity = isDragging ? 0.4 : 1;
 
     return (
