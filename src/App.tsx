@@ -6,6 +6,9 @@ import { Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
 import TotalPrice from './Components/totalPrice';
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import CartDnd from './Components/cart-dnd/cartDnd';
 
 interface ShopItem {
   id: number;
@@ -73,44 +76,47 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <Container className="shop">
-        <Row>
-          <Col xs={6} className="product-grid">
-            {productDatabase.map((item) =>
-              <StoreProduct
-                title={item.title}
-                price={item.price}
-                imageSource={item.imageSource}
-                addItemToCart={
-                  () => checkIfItemIsInCart(item)
-                }
-              />
-            )}
-          </Col>
-          <Col xs={6} className="cart">
-            <h1>Your cart</h1>
-            <hr />
-            {selectedItems.length === 0 ? emptyCartText : selectedItems.map((item, i) =>
-              <MDBAnimation type="fadeIn" duration="500ms">
-                <CartProduct
+      <DndProvider backend={HTML5Backend}>
+        <Container className="shop">
+          <Row>
+            <Col xs={6} className="product-grid">
+              {productDatabase.map((item) =>
+                <StoreProduct
                   title={item.title}
                   price={item.price}
                   imageSource={item.imageSource}
-                  quantity={item.quantity}
-                  onRemove={() => {
-                    selectedItems.splice(i, 1)
-                    setSelectedItems([...selectedItems])
-                    item.quantity = 0;
-                  }}
+                  addItemToCart={
+                    () => checkIfItemIsInCart(item)
+                  }
                 />
-              </MDBAnimation>
-            )}
-            <TotalPrice
-              total={getTotalPrice()}
-            />
-          </Col>
-        </Row>
-      </Container>
+              )}
+            </Col>
+            <Col xs={6} className="cart">
+              <h1>Your cart</h1>
+              <hr />
+              <CartDnd />
+              {selectedItems.length === 0 ? emptyCartText : selectedItems.map((item, i) =>
+                <MDBAnimation type="fadeIn" duration="500ms">
+                  <CartProduct
+                    title={item.title}
+                    price={item.price}
+                    imageSource={item.imageSource}
+                    quantity={item.quantity}
+                    onRemove={() => {
+                      selectedItems.splice(i, 1)
+                      setSelectedItems([...selectedItems])
+                      item.quantity = 0;
+                    }}
+                  />
+                </MDBAnimation>
+              )}
+              <TotalPrice
+                total={getTotalPrice()}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </DndProvider>
     </div>
   );
 }

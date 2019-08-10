@@ -11,6 +11,7 @@ interface ProductProps {
 
 const StoreProduct: React.FC<ProductProps> = ({ title, price, imageSource, addItemToCart }) => {
     return (
+
         <Col xs={5} className="product">
             <Image src={imageSource} fluid />
             <h2>{title}</h2>
