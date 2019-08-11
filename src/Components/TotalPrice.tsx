@@ -7,10 +7,9 @@ interface TotalPriceProps {
 
 const TotalPrice: React.FC<TotalPriceProps> = ({ total }) => {
     return (
-        <Col className="total-price">
-            <hr />
-            <p>Total price: €{total}</p>
-        </Col>
+
+        <p>Total price: €{total}</p>
+
     )
 }
 

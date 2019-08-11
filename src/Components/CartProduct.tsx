@@ -21,12 +21,11 @@ const CartProduct: React.FC<CartProductProps> = ({ title, price, imageSource, qu
                 />
                 <Media.Body>
                     <h5>
-                        {title}
+                        {title} x{quantity}
                     </h5>
                     <p>
-                        {price}
+                        €{price}
                     </p>
-                    <p>QTY: {quantity}</p>
                 </Media.Body>
                 <Button variant="light" size="sm" onClick={onRemove}>Remove</Button>
             </Media>

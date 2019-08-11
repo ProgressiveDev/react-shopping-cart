@@ -25,7 +25,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 17px 12px -5px rgba(0, 0, 0, 0.16);
-    min-height: 700px;
+    min-width: 1140px;
 }
 
 .cart {
@@ -36,6 +36,9 @@ body {
     .qty-input {
         max-width: 50px;
     }
+    a {
+        margin-right: 20px;
+    }
     position: relative;
 }
 
@@ -44,8 +47,28 @@ button {
 }
 
 .total-price {
-    position: absolute;
-    bottom: -30px;
-    left: 0;
     margin-top: 20px;
+    max-height: 60px;
+}
+
+.dnd::before {
+    content: "Drop item to add to cart"
+}
+
+.dnd-drop {
+    border: 5px dashed #cecece;
+    border-radius: 15px;
+    opacity: 0.5;
+}
+
+.checkout-form {
+    form
+    {
+    max-width: 380px;
+    margin: 40px auto;
+    }
+    h1 {
+        margin: 40px;
+        text-align: center;
+    }
 }
