@@ -17,28 +17,28 @@ const productDatabase: ShopItem[] = [
   {
     id: 1,
     title: "Nokia 3310",
-    price: 7.89,
+    price: 5.89,
     imageSource: "https://cnet2.cbsistatic.com/img/jLcmjnneV9OVWS98fSRu55OmmKY=/868x488/2017/02/26/816796f6-f9b2-4f3c-aaf4-e53ca98196ee/nokia-3310-mwc-12.jpg",
     quantity: 0
   },
   {
     id: 2,
     title: "Nokia 3320",
-    price: 7.89,
+    price: 3.42,
     imageSource: "https://cnet2.cbsistatic.com/img/jLcmjnneV9OVWS98fSRu55OmmKY=/868x488/2017/02/26/816796f6-f9b2-4f3c-aaf4-e53ca98196ee/nokia-3310-mwc-12.jpg",
     quantity: 0
   },
   {
     id: 3,
     title: "Nokia 3330",
-    price: 7.89,
+    price: 9.05,
     imageSource: "https://cnet2.cbsistatic.com/img/jLcmjnneV9OVWS98fSRu55OmmKY=/868x488/2017/02/26/816796f6-f9b2-4f3c-aaf4-e53ca98196ee/nokia-3310-mwc-12.jpg",
     quantity: 0
   },
   {
     id: 4,
     title: "Nokia 3340",
-    price: 7.89,
+    price: 6.55,
     imageSource: "https://cnet2.cbsistatic.com/img/jLcmjnneV9OVWS98fSRu55OmmKY=/868x488/2017/02/26/816796f6-f9b2-4f3c-aaf4-e53ca98196ee/nokia-3310-mwc-12.jpg",
     quantity: 0
   }
@@ -69,6 +69,7 @@ const App: React.FC = () => {
             addItemToCart={
               () => checkIfItemIsInCart(item)
             }
+            info={<p>Info</p>}
           />
         )
       }
@@ -79,8 +80,6 @@ const App: React.FC = () => {
     <div className="App">
       <DndProvider backend={HTML5Backend}>
         <Router>
-          <Link to="/">Shop</Link>
-          <Link to="/checkout">Checkout</Link>
           <Container className="shop">
             <Row>
 
@@ -91,6 +90,8 @@ const App: React.FC = () => {
                 <ShoppingCart items={selectedItems} removeItem={(item) => {
                   setSelectedItems(selectedItems.filter(i => item.id !== i.id));
                 }} />
+                <Link to="/" >Shop</Link>
+                <Link to="/checkout">Go to checkout</Link>
               </Col>
             </Row>
           </Container>

@@ -54,7 +54,7 @@ export default function CheckoutForm() {
 
                 <Button variant="primary" type="submit">
                     Submit
-  </Button>
+                </Button>
             </Form>
         </Col>
     )
