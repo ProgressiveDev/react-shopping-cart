@@ -49,3 +49,13 @@ button {
     left: 0;
     margin-top: 20px;
 }
+
+.dnd::before {
+    content: "Drop item to add to cart"
+}
+
+.dnd-drop {
+    border: 5px dashed #cecece;
+    border-radius: 15px;
+    opacity: 0.5;
+}

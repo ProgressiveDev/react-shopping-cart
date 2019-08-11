@@ -24,8 +24,6 @@ const StoreProduct: React.FC<ProductProps> = ({ title, price, imageSource, addIt
         })
     });
 
-    const opacity = isDragging ? 0.4 : 1;
-
     return (
         <div ref={drag} className="col-5 product">
             <Image src={imageSource} fluid />

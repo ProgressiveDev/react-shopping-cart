@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import StoreProduct from './Components/product';
-import CartProduct from './Components/cartProduct';
+import StoreProduct from './Components/Product';
 import { MDBAnimation } from "mdbreact";
 import { Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
-import TotalPrice from './Components/totalPrice';
+import TotalPrice from './Components/TotalPrice';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import CartDnd from './Components/cart-dnd/cartDnd';
+import CartDnd from './Components/cart-dnd/ShoppingCart';
+import NextButton from './Components/checkout/NextButton';
 
 interface ShopItem {
   id: number;
@@ -52,8 +52,6 @@ const productDatabase: ShopItem[] = [
 const App: React.FC = () => {
 
   const [selectedItems, setSelectedItems] = useState<ShopItem[]>([]);
-
-  const emptyCartText = <p>Your cart is empty</p>
 
   const checkIfItemIsInCart = (x: ShopItem) => {
     const result = selectedItems.find(item => item.id === x.id);
@@ -111,6 +109,7 @@ const App: React.FC = () => {
               <TotalPrice
                 total={getTotalPrice()}
               />
+              <NextButton />
             </Col>
           </Row>
         </Container>
