@@ -25,7 +25,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 17px 12px -5px rgba(0, 0, 0, 0.16);
-    min-height: 700px;
+    min-width: 1140px;
 }
 
 .cart {
@@ -44,10 +44,8 @@ button {
 }
 
 .total-price {
-    position: absolute;
-    bottom: -30px;
-    left: 0;
     margin-top: 20px;
+    max-height: 60px;
 }
 
 .dnd::before {
@@ -58,4 +56,16 @@ button {
     border: 5px dashed #cecece;
     border-radius: 15px;
     opacity: 0.5;
+}
+
+.checkout-form {
+    form
+    {
+    max-width: 380px;
+    margin: 50px auto;
+    }
+    h1 {
+        margin: 40px;
+        text-align: center;
+    }
 }

@@ -58,35 +58,45 @@ const App: React.FC = () => {
     }
   }
 
+  const DisplayProducts = () => {
+    return <Col xs={6} className="product-grid">
+      {
+        productDatabase.map((item) =>
+          <Product
+            title={item.title}
+            price={item.price}
+            imageSource={item.imageSource}
+            addItemToCart={
+              () => checkIfItemIsInCart(item)
+            }
+          />
+        )
+      }
+    </Col>
+  }
+
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
         <Router>
+          <Link to="/">Shop</Link>
+          <Link to="/checkout">Checkout</Link>
+          <Container className="shop">
+            <Row>
 
+              <Route exact path="/" component={DisplayProducts} />
+              <Route path="/checkout" component={CheckoutForm} />
+
+              <Col xs={6} className="cart">
+                <ShoppingCart items={selectedItems} removeItem={(item) => {
+                  setSelectedItems(selectedItems.filter(i => item.id !== i.id));
+                }} />
+              </Col>
+            </Row>
+          </Container>
         </Router>
-        <Container className="shop">
-          <Row>
-            <Col xs={6} className="product-grid">
-              {productDatabase.map((item) =>
-                <Product
-                  title={item.title}
-                  price={item.price}
-                  imageSource={item.imageSource}
-                  addItemToCart={
-                    () => checkIfItemIsInCart(item)
-                  }
-                />
-              )}
-            </Col>
-            <Col xs={6} className="cart">
-              <ShoppingCart items={selectedItems} removeItem={(item) => {
-                setSelectedItems(selectedItems.filter(i => item.id !== i.id));
-              }} />
-            </Col>
-          </Row>
-        </Container>
       </DndProvider>
-    </div>
+    </div >
   );
 }
 
