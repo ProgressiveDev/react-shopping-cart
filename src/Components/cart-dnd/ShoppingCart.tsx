@@ -20,7 +20,7 @@ const style: React.CSSProperties = {
 
 
 
-const ShoppingCart: React.FC<{ items: ShopItem[] }> = ({ items }) => {
+const ShoppingCart: React.FC<{ items: ShopItem[], removeItem: (item: ShopItem) => void }> = ({ items, removeItem }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
         collect: monitor => ({
@@ -46,19 +46,19 @@ const ShoppingCart: React.FC<{ items: ShopItem[] }> = ({ items }) => {
             <h1>Your cart</h1>
             <hr />
             <div className={isActive ? "dnd-drop" : "dnd"} ref={drop} style={{ ...style, opacity }}>
-                <MDBAnimation type="fadeIn" duration="500ms">
-                    {items.map((item, i) => <CartProduct
-                        title={item.title}
-                        price={item.price}
-                        imageSource={item.imageSource}
-                        quantity={item.quantity}
-                        onRemove={() => {
-                            items.splice(i, 1)
-                            item.quantity = 0;
-                            // setSelectedItems([...selectedItems])
-                        }}
-                    />)}
-                </MDBAnimation>
+                {items.map((item, i) =>
+                    <MDBAnimation type="fadeIn" duration="500ms">
+                        <CartProduct
+                            title={item.title}
+                            price={item.price}
+                            imageSource={item.imageSource}
+                            quantity={item.quantity}
+                            onRemove={() => {
+                                removeItem(item);
+                            }}
+                        />
+                    </MDBAnimation>
+                )}
             </div>
             <TotalPrice
                 total={getTotalPrice()}

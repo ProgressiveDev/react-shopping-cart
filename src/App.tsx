@@ -7,7 +7,10 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import ShoppingCart from './Components/cart-dnd/ShoppingCart';
 import NextButton from './Components/checkout/NextButton';
 import { ShopItem } from './ShopItemTypes';
-import Product from "./Components/Product"
+import Product from "./Components/Product";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import CheckoutForm from './Components/checkout/CheckoutForm';
+import BackButton from './Components/checkout/BackButton';
 
 
 const productDatabase: ShopItem[] = [
@@ -58,6 +61,9 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
+        <Router>
+
+        </Router>
         <Container className="shop">
           <Row>
             <Col xs={6} className="product-grid">
@@ -73,9 +79,9 @@ const App: React.FC = () => {
               )}
             </Col>
             <Col xs={6} className="cart">
-              <ShoppingCart
-                items={selectedItems} />
-              <NextButton />
+              <ShoppingCart items={selectedItems} removeItem={(item) => {
+                setSelectedItems(selectedItems.filter(i => item.id !== i.id));
+              }} />
             </Col>
           </Row>
         </Container>
