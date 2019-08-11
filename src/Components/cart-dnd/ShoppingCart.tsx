@@ -3,6 +3,8 @@ import { useDrop } from "react-dnd";
 import ItemTypes from "./ItemTypes";
 import CartProduct from '../CartProduct';
 import { MDBAnimation } from "mdbreact";
+import TotalPrice from '../TotalPrice';
+import { ShopItem } from '../../ShopItemTypes';
 
 const style: React.CSSProperties = {
     height: "70%",
@@ -16,15 +18,9 @@ const style: React.CSSProperties = {
     float: "left"
 };
 
-interface ShoppingCartProps {
-    title: string;
-    price: number;
-    imageSource: string;
-    quantity: number;
-    onRemove(): void;
-}
 
-const ShoppingCart: React.FC<ShoppingCartProps> = ({ title, price, imageSource, quantity, onRemove }) => {
+
+const ShoppingCart: React.FC<{ items: ShopItem[] }> = ({ items }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
         collect: monitor => ({
@@ -41,23 +37,33 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ title, price, imageSource, 
         opacity = 0.5;
     }
 
+    const getTotalPrice = () => {
+        return Number(items.reduce((a, b) => (a + b.price * b.quantity), 0).toFixed(2))
+    }
+
     return (
-        <div className={isActive ? "dnd-drop" : "dnd"} ref={drop} style={{ ...style, opacity }}>
-            <MDBAnimation type="fadeIn" duration="500ms">
-                <CartProduct
-                    title={title}
-                    price={price}
-                    imageSource={imageSource}
-                    quantity={quantity}
-                    onRemove={onRemove}
-                // onRemove={() => {
-                //     selectedItems.splice(i, 1)
-                //     setSelectedItems([...selectedItems])
-                //     item.quantity = 0;
-                // }}
-                />
-            </MDBAnimation>
-        </div>
+        <>
+            <h1>Your cart</h1>
+            <hr />
+            <div className={isActive ? "dnd-drop" : "dnd"} ref={drop} style={{ ...style, opacity }}>
+                <MDBAnimation type="fadeIn" duration="500ms">
+                    {items.map((item, i) => <CartProduct
+                        title={item.title}
+                        price={item.price}
+                        imageSource={item.imageSource}
+                        quantity={item.quantity}
+                        onRemove={() => {
+                            items.splice(i, 1)
+                            item.quantity = 0;
+                            // setSelectedItems([...selectedItems])
+                        }}
+                    />)}
+                </MDBAnimation>
+            </div>
+            <TotalPrice
+                total={getTotalPrice()}
+            />
+        </>
     );
 };
 

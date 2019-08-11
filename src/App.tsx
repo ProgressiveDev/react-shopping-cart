@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
-import StoreProduct from './Components/Product';
-import { MDBAnimation } from "mdbreact";
 import { Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
-import TotalPrice from './Components/TotalPrice';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import CartDnd from './Components/cart-dnd/ShoppingCart';
+import ShoppingCart from './Components/cart-dnd/ShoppingCart';
 import NextButton from './Components/checkout/NextButton';
+import { ShopItem } from './ShopItemTypes';
+import Product from "./Components/Product"
 
-interface ShopItem {
-  id: number;
-  title: string;
-  price: number;
-  imageSource: string;
-  quantity: number;
-}
 
 const productDatabase: ShopItem[] = [
   {
@@ -63,10 +55,6 @@ const App: React.FC = () => {
     }
   }
 
-  const getTotalPrice = () => {
-    return Number(selectedItems.reduce((a, b) => (a + b.price * b.quantity), 0).toFixed(2))
-  }
-
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
@@ -74,7 +62,7 @@ const App: React.FC = () => {
           <Row>
             <Col xs={6} className="product-grid">
               {productDatabase.map((item) =>
-                <StoreProduct
+                <Product
                   title={item.title}
                   price={item.price}
                   imageSource={item.imageSource}
@@ -85,30 +73,8 @@ const App: React.FC = () => {
               )}
             </Col>
             <Col xs={6} className="cart">
-              <h1>Your cart</h1>
-              <hr />
-              <CartDnd
-                displayProduct={
-                  selectedItems.map((item, i) =>
-                    <MDBAnimation type="fadeIn" duration="500ms">
-                      <CartProduct
-                        title={item.title}
-                        price={item.price}
-                        imageSource={item.imageSource}
-                        quantity={item.quantity}
-                        onRemove={() => {
-                          selectedItems.splice(i, 1)
-                          setSelectedItems([...selectedItems])
-                          item.quantity = 0;
-                        }}
-                      />
-                    </MDBAnimation>
-                  )
-                }
-              />
-              <TotalPrice
-                total={getTotalPrice()}
-              />
+              <ShoppingCart
+                items={selectedItems} />
               <NextButton />
             </Col>
           </Row>
